@@ -1,7 +1,14 @@
 package main
 
-import "fmt"
+import (
+	"charm.land/log/v2"
+
+	"github.com/dr4hgs/mes3hacklab.ssh/internal/server"
+)
 
 func main() {
-	fmt.Println("Hello, world!")
+	srv := server.New()
+	if err := srv.Start(); err != nil {
+		log.Error("Could not start server", "error", err)
+	}
 }
