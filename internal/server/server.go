@@ -11,9 +11,13 @@ import (
 
 	"charm.land/log/v2"
 	"charm.land/wish/v2"
+	"charm.land/wish/v2/activeterm"
+	"charm.land/wish/v2/bubbletea"
 	"charm.land/wish/v2/logging"
 	"github.com/charmbracelet/ssh"
 	"github.com/joho/godotenv"
+
+	"github.com/dr4hgs/mes3hacklab.ssh/internal/tui"
 )
 
 const (
@@ -58,12 +62,8 @@ func (s *Server) Start() (err error) {
 		wish.WithAddress(net.JoinHostPort(host, port)),
 		wish.WithHostKeyPath(sshkeyPath),
 		wish.WithMiddleware(
-			func(next ssh.Handler) ssh.Handler {
-				return func(s ssh.Session) {
-					wish.Println(s, "Hello, world")
-					next(s)
-				}
-			},
+			bubbletea.Middleware(tui.Handler),
+			activeterm.Middleware(),
 			logging.Middleware(),
 		),
 	)
