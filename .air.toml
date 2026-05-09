@@ -8,7 +8,7 @@ tmp_dir = "bin"
 [build]
   args_bin = []
   bin = "./bin/dev"
-  cmd = "go build -o ./bin/dev ./..."
+  cmd = "go build -o ./bin/dev ./cmd/mes3hacklab.ssh/main.go"
   delay = 1000
   entrypoint = ["./bin/dev"]
   exclude_dir = ["assets", "tmp", "vendor", "testdata"]
