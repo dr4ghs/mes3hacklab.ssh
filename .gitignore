@@ -1,0 +1,7 @@
+# Go
+**/go.sum
+
+# Project
+bin/
+**/*.env
+
