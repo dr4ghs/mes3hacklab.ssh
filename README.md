@@ -24,7 +24,7 @@ valori di default:
 | SRV_HOST | Indirizzo IP del server | localhost |
 | SRV_PORT | Porta del server | 46593 |
 | SSH_KEY_PATH | Path assoluto della chiave SSH privata utilizzata dal server | ~/.ssh/id_ed25519 |
-| CONTENT_URL | URL della repository Git dove recuperare i contenuti dell'applicazione | [mes3hacklab/mes3hacklab.github.io](https://github.com/mes3hacklab/mes3hacklab.github.io) |
+| GITHUB_REPO_ID | ID della repository GitHub in formato `<user>/<repo>` | mes3hacklab/mes3hacklab.github.io |
 
 ## Sviluppo
 
