@@ -9,7 +9,7 @@ import (
 	tea "charm.land/bubbletea/v2"
 	"charm.land/lipgloss/v2"
 
-	pm "github.com/dr4hgs/mes3hacklab.ssh/internal/tui/home/promptmode"
+	pm "github.com/dr4hgs/mes3hacklab.ssh/internal/tui/home/mode"
 )
 
 var promptLineStyle = lipgloss.NewStyle().

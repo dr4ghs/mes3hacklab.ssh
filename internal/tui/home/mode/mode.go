@@ -1,5 +1,5 @@
-// Package promptmode
-package promptmode
+// Package mode
+package mode
 
 import tea "charm.land/bubbletea/v2"
 
