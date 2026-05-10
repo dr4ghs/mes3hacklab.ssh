@@ -9,16 +9,10 @@ import (
 	"charm.land/lipgloss/v2"
 	"github.com/charmbracelet/ssh"
 
+	"github.com/dr4hgs/mes3hacklab.ssh/assets"
 	"github.com/dr4hgs/mes3hacklab.ssh/internal/tui/home"
 	"github.com/dr4hgs/mes3hacklab.ssh/internal/tui/msgs"
 )
-
-//go:embed banner.txt
-var banner string
-
-func Banner() string {
-	return banner
-}
 
 type model struct {
 	session       ssh.Session
@@ -35,7 +29,7 @@ type model struct {
 
 func New(s ssh.Session) tea.Model {
 	pty, _, _ := s.Pty()
-	vpWidth := lipgloss.Width(banner)
+	vpWidth := lipgloss.Width(assets.Banner())
 
 	m := model{
 		session:       s,
@@ -94,7 +88,7 @@ func (m model) View() tea.View {
 			m.txtStyle.Width(m.width).
 				Height(m.height).
 				Align(lipgloss.Center, lipgloss.Center).
-				Render(banner),
+				Render(assets.Banner()),
 		).Z(0),
 		lipgloss.NewLayer(
 			lipgloss.NewStyle().
