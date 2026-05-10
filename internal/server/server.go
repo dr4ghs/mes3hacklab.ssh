@@ -15,40 +15,10 @@ import (
 	"charm.land/wish/v2/bubbletea"
 	"charm.land/wish/v2/logging"
 	"github.com/charmbracelet/ssh"
-	"github.com/joho/godotenv"
 
+	"github.com/dr4hgs/mes3hacklab.ssh/internal/constants"
 	"github.com/dr4hgs/mes3hacklab.ssh/internal/tui"
 )
-
-const (
-	_EnvSrvHostName    = "SRV_HOST"
-	_EnvSrvPortName    = "SRV_PORT"
-	_EnvSSHKeyPathName = "SSH_KEY_PATH"
-)
-
-var (
-	host       string
-	port       string
-	sshkeyPath string
-)
-
-func init() {
-	if err := godotenv.Load(); err != nil {
-		log.Fatalf("Cannot find .env file: %v\n", err)
-	}
-
-	if host = os.Getenv(_EnvSrvHostName); host == "" {
-		host = "localhost"
-	}
-
-	if port = os.Getenv(_EnvSrvPortName); port == "" {
-		port = "46593"
-	}
-
-	if sshkeyPath = os.Getenv(_EnvSSHKeyPathName); sshkeyPath == "" {
-		sshkeyPath = "~/.ssh/id_ed25519"
-	}
-}
 
 type Server struct{}
 
@@ -59,8 +29,11 @@ func New() Server {
 func (s *Server) Start() (err error) {
 	var srv *ssh.Server
 	srv, err = wish.NewServer(
-		wish.WithAddress(net.JoinHostPort(host, port)),
-		wish.WithHostKeyPath(sshkeyPath),
+		wish.WithAddress(net.JoinHostPort(
+			constants.SrvHost(),
+			constants.SrvPort(),
+		)),
+		wish.WithHostKeyPath(constants.SSHKeyPath()),
 		wish.WithMiddleware(
 			bubbletea.Middleware(tui.Handler),
 			activeterm.Middleware(),
@@ -75,7 +48,7 @@ func (s *Server) Start() (err error) {
 	signal.Notify(done, os.Interrupt, syscall.SIGINT, syscall.SIGTERM)
 
 	go func() {
-		log.Info("Starting SSH server", "host", host, "port", port)
+		log.Info("Starting SSH server", "host", constants.SrvHost(), "port", constants.SrvPort())
 		if err = srv.ListenAndServe(); err != nil && !errors.Is(err, ssh.ErrServerClosed) {
 			return
 		}
