@@ -11,3 +11,24 @@ Essendo una TUI app servita con SSH, basta eseguire il seguente comando per acce
 ssh mes3hacklab.org
 ```
 
+## Settings
+
+Dal momento che i file .env vengono ignorati dal .gitignore, durante lo sviluppo
+ed il deploy bisogna crearne uno per far funzionare il server.
+
+Di seguito Vengono elencate le variabili d'ambiente necessarie ed i rispettivi
+valori di default:
+
+| Nome | Descrizione | Default |
+|--|--|--|
+| SRV_HOST | Indirizzo IP del server | localhost |
+| SRV_PORT | Porta del server | 46593 |
+| SSH_KEY_PATH | Path assoluto della chiave SSH privata utilizzata dal server | ~/.ssh/id_ed25519 |
+| CONTENT_URL | URL della repository Git dove recuperare i contenuti dell'applicazione | [mes3hacklab/mes3hacklab.github.io](https://github.com/mes3hacklab/mes3hacklab.github.io) |
+
+## Sviluppo
+
+- [Go](https://go.dev/doc/install) v1.26.2
+- [Just](https://github.com/casey/just)
+- [Air](https://github.com/air-verse/air)
+
