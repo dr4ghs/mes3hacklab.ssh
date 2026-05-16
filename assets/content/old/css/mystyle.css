@@ -1,0 +1,69 @@
+.jumbotron {
+    background-image: url(../img/logo.png);
+    background-position: center center;
+    background-size:contain;
+    background-repeat: no-repeat;
+    color: #fff;
+    background-color: #333;
+}
+
+.welcome {
+    background-image: url(../img/logo.svg);
+    background-position: center center;
+    background-size: 100% auto;	
+}
+
+.dorkside {
+    background-image: url(../img/tdsog_logo.png);
+    background-position: bottom right;
+}
+
+.onion {
+    background-image: url(../img/onionmail.gif);
+    background-position: bottom right;
+    background-size: 30%;
+}
+
+
+.row li div img {
+    width: inherit;
+    height: inherit;
+    
+}
+
+.mediav {
+    background-image: url(../img/esc.png);
+    background-size: 20%;
+    background-position: bottom right;
+}
+
+.profiles img {
+    border-radius: 200px;
+}
+
+/**GALLERY**/
+
+.gallery {
+    padding:0 0 0 0;
+    margin:0 0 0 0;
+}
+.gallery li {
+    list-style:none;
+    margin-bottom:25px;
+}
+
+.gallery img {
+    cursor: pointer;
+	  display: block;
+	  max-width: 100%;
+	  height: auto !important;
+	  width: auto\9;
+
+}
+
+.crop {
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+}
+

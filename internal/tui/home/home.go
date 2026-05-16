@@ -6,7 +6,7 @@ import (
 	"charm.land/lipgloss/v2"
 	"github.com/charmbracelet/ssh"
 
-	"github.com/dr4hgs/mes3hacklab.ssh/internal/tui/home/content"
+	"github.com/dr4hgs/mes3hacklab.ssh/internal/tui/home/content/splashscreen"
 	"github.com/dr4hgs/mes3hacklab.ssh/internal/tui/home/footer"
 	"github.com/dr4hgs/mes3hacklab.ssh/internal/tui/home/header"
 	pm "github.com/dr4hgs/mes3hacklab.ssh/internal/tui/home/mode"
@@ -30,7 +30,7 @@ func New(s ssh.Session) tea.Model {
 		session: s,
 		mode:    mode,
 		header:  header.New(mode, s.User()),
-		content: content.New(content.SplashScreen()),
+		content: splashscreen.Model{},
 		footer:  footer.New(mode),
 	}
 }
@@ -38,6 +38,7 @@ func New(s ssh.Session) tea.Model {
 func (m Model) Init() tea.Cmd {
 	return tea.Batch(
 		m.header.Init(),
+		m.content.Init(),
 		m.footer.Init(),
 	)
 }
@@ -72,6 +73,9 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	m.header, cmd = m.header.Update(msg)
 	cmds = append(cmds, cmd)
 
+	m.content, cmd = m.content.Update(msg)
+	cmds = append(cmds, cmd)
+
 	m.footer, cmd = m.footer.Update(msg)
 	cmds = append(cmds, cmd)
 
@@ -92,12 +96,12 @@ func (m Model) View() tea.View {
 	content := lipgloss.NewStyle().
 		Width(m.width).
 		Height(m.height).
-		Align(lipgloss.Center, lipgloss.Center).
+		// Align(lipgloss.Center, lipgloss.Center).
 		Render(m.content.View().Content)
 
 	cmp := lipgloss.NewCompositor(
 		lipgloss.NewLayer(header),
-		lipgloss.NewLayer(content).Z(-10),
+		lipgloss.NewLayer(content).Y(lipgloss.Height(header)).Z(-10),
 		lipgloss.NewLayer(footer).Y(m.height-1),
 	)
 

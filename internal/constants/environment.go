@@ -20,6 +20,7 @@ var (
 	port         string
 	sshkeyPath   string
 	githubRepoID string
+	local        bool
 )
 
 func init() {
@@ -40,7 +41,7 @@ func init() {
 	}
 
 	if githubRepoID = os.Getenv(_EnvGitHubRepoID); githubRepoID == "" {
-		githubRepoID = "https://github.com/mes3hacklab/mes3hacklab.github.io"
+		local = true
 	}
 }
 
@@ -58,4 +59,8 @@ func SSHKeyPath() string {
 
 func GitHubRepoID() string {
 	return githubRepoID
+}
+
+func Local() bool {
+	return local
 }

@@ -16,7 +16,7 @@ import (
 //
 
 const (
-	_IgnorePathRegexp = "content/(old|events/archive)"
+	_IgnorePathRegexp = "(content/(old|events/archive)|.*img$)"
 )
 
 const (
@@ -51,7 +51,7 @@ type Node struct {
 	Path     string `json:"path"`
 	Name     string `json:"name"`
 	URL      string `json:"download_url"`
-	Children map[string]Node
+	Children []Node
 }
 
 func Init() (Node, error) {
@@ -77,25 +77,27 @@ func (n Node) Open(dir string) (c Node, err error) {
 	c.Type = "dir"
 	c.Path = "content"
 	c.Name = "content"
+	c.URL = url
 
 	var resp *http.Response
-	resp, err = http.Get(url)
+	resp, err = http.Get(c.URL)
 	if err != nil {
 		return
 	}
 	defer resp.Body.Close()
 
-	c.URL = url
+	if resp.StatusCode != http.StatusOK {
+		return c, fmt.Errorf("cannot read the file: %d", resp.StatusCode)
+	}
 
 	var content []Node
 	if err = json.NewDecoder(resp.Body).Decode(&content); err != nil {
 		return
 	}
 
-	c.Children = make(map[string]Node)
 	for _, child := range content {
 		if !r.MatchString(child.Path) {
-			c.Children[child.Name] = child
+			c.Children = append(c.Children, child)
 		}
 	}
 
@@ -139,4 +141,14 @@ func (n Node) Render(full bool) string {
 	}
 
 	return fmt.Sprintf("%s %s", prefix, n.Name)
+}
+
+func (n Node) HasChild(name string) (int, bool) {
+	for i, c := range n.Children {
+		if c.Name == name {
+			return i, true
+		}
+	}
+
+	return -1, false
 }
