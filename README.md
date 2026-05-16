@@ -1,34 +1,28 @@
 # mes3hacklab.ssh
 
-Stessa cosa di mes3hacklab.org, ma servito in SSH con [Wish](https://github.com/charmbracelet/wish) e
-costruito con lo stack TUI [BubbleTea](https://github.com/charmbracelet/bubbletea).
+Same as [mes3hacklab.org](https://mes3hacklab.org) but SSH served using
+[Wish](https://github.com/charmbracelet/wish) and built with the [BubbleTea](https://github.com/charmbracelet/bubbletea)
+TUI stack.
 
-## Come accedere
+## Development
 
-Essendo una TUI app servita con SSH, basta eseguire il seguente comando per accederci.
-
-```bash
-ssh mes3hacklab.org
-```
-
-## Settings
-
-Dal momento che i file .env vengono ignorati dal .gitignore, durante lo sviluppo
-ed il deploy bisogna crearne uno per far funzionare il server.
-
-Di seguito Vengono elencate le variabili d'ambiente necessarie ed i rispettivi
-valori di default:
-
-| Nome | Descrizione | Default |
-|--|--|--|
-| SRV_HOST | Indirizzo IP del server | localhost |
-| SRV_PORT | Porta del server | 46593 |
-| SSH_KEY_PATH | Path assoluto della chiave SSH privata utilizzata dal server | ~/.ssh/id_ed25519 |
-| GITHUB_REPO_ID | ID della repository GitHub in formato `<user>/<repo>` | mes3hacklab/mes3hacklab.github.io |
-
-## Sviluppo
+Needed programs and tools for development:
 
 - [Go](https://go.dev/doc/install) v1.26.2
 - [Just](https://github.com/casey/just)
 - [Air](https://github.com/air-verse/air)
+
+### Settings
+
+Since `.env` files are ignored by `.gitignore`, if one want to contribute to the
+project at least one `.env` file has to be created.
+
+Here are the mandatory environment variables and their default values:
+
+| Nome | Descrizione | Default |
+|--|--|--|
+| SRV_HOST | Server IP address | localhost |
+| SRV_PORT | Server port | 46593 |
+| SSH_KEY_PATH | SSH key absolute path used by the server | ~/.ssh/id_ed25519 |
+| GITHUB_REPO_ID | Github repository ID using the format `<user>/<repo>` | mes3hacklab/mes3hacklab.github.io |
 
