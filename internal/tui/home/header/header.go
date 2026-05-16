@@ -57,6 +57,10 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		if m.mode == pm.InsertMode {
 			m.textInput.Placeholder = "help"
 		}
+
+		if m.mode == pm.NormalMode {
+			m.textInput.SetValue("")
+		}
 	case tea.KeyMsg:
 		if m.mode == pm.InsertMode {
 			switch msg.String() {
